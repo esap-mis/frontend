@@ -140,7 +140,7 @@ const Patients: React.FC = () => {
           InputLabelProps={{ shrink: true }}
           sx={{ width: '800px' }}
         />
-        <Link href={"/patients/new"}>
+        <Link href={"/patients/register"}>
           <Button variant="contained" color="primary" aria-label="add patient" component="label" sx={{ marginRight: '10px' }}>
             <AddIcon />
           </Button>
