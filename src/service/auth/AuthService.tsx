@@ -3,10 +3,10 @@ import {AuthInfo} from "../../model/auth/AuthInfo";
 import {ClinicRegistrationDTO} from "../../model/dto/ClinicRegistrationDTO";
 import {DoctorRegistrationDTO} from "../../model/dto/DoctorRegistrationDTO";
 import Api from "./Api";
-import {BASE_URL} from "../../util/Constants";
+import config from "../../config";
 
 class AuthService {
-  private static AUTH_URL = BASE_URL + "/api/auth";
+  private static AUTH_URL = config.apiUrl + "/api/auth";
 
   public static async attemptAuth(credentials: InfoLogin) {
     return await Api.post<AuthInfo>(this.AUTH_URL + "/login", credentials)

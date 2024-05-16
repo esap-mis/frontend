@@ -148,19 +148,17 @@ const PatientList: React.FC = () => {
         </Link>
       </Box>
       <DataGrid
-        localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-        rows={data}
-        disableSelectionOnClick
-        columns={columns}
-        pagination
-        page={page}
-        pageSize={10}
-        rowCount={totalPages * 10}
-        rowsPerPageOptions={[13]}
-        checkboxSelection
-        sx={{border: "none"}}
-        onPageChange={(newPage) => setPage(newPage)}
-        paginationMode="server"
+          localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
+          rows={data}
+          disableRowSelectionOnClick
+          columns={columns}
+          pagination
+          paginationModel={{ page, pageSize: 10 }}
+          rowCount={totalPages * 10}
+          checkboxSelection
+          sx={{ border: "none" }}
+          onPaginationModelChange={(newPage) => setPage(newPage.page)}
+          paginationMode="server"
       />
     </div>
   );

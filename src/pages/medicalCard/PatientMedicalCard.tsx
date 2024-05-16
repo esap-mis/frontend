@@ -91,13 +91,14 @@ const PatientMedicalCard: React.FC = (onClose) => {
         </div>
         <div className="medicalCard">
           <DataGrid
-            localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-            rows={data?.medicalRecord || []}
-            disableSelectionOnClick
-            columns={columns}
-            pageSize={13}
-            rowsPerPageOptions={[5]}
-            checkboxSelection
+              localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
+              rows={data?.medicalRecord || []}
+              disableRowSelectionOnClick
+              columns={columns}
+              pagination
+              checkboxSelection
+              sx={{ border: "none" }}
+              paginationMode="server"
           />
         </div>
       </div>

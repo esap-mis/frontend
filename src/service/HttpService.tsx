@@ -13,16 +13,16 @@ import {PatientStatisticsByAgeDTO} from "../model/dto/PatientStatisticsByAgeDTO"
 import {PatientDTO} from "../model/dto/PatientDTO";
 import {Page} from "./util/Page";
 import {DoctorDTO} from "../model/dto/DoctorDTO";
-import {BASE_URL} from "../util/Constants";
+import config from "../config";
 
 class HttpService {
-  private static API_PATIENT = "/api/patient";
-  private static API_DOCTOR = "/api/doctor";
-  private static API_MEDICAL_CARD = "/api/medicalCard";
-  private static API_SCHEDULE = "/api/schedule";
+  private static API_PATIENT = config.apiUrl + "/api/patient";
+  private static API_DOCTOR = config.apiUrl + "/api/doctor";
+  private static API_MEDICAL_CARD = config.apiUrl + "/api/medicalCard";
+  private static API_SCHEDULE = config.apiUrl + "/api/schedule";
 
   public static async getPatientList(page?: number) {
-    return await Api.get<Page<Patient[]>>(BASE_URL + this.API_PATIENT, {
+    return await Api.get<Page<Patient[]>>(this.API_PATIENT, {
       params: { page: page },
     })
       .then((res) => res.data)
@@ -32,7 +32,7 @@ class HttpService {
   }
 
   public static async getLatestPatients() {
-    return await Api.get<Patient[]>(BASE_URL + this.API_PATIENT + "/latest")
+    return await Api.get<Patient[]>(this.API_PATIENT + "/latest")
       .then((res) => res.data)
       .catch((error) => {
         throw error;
@@ -40,7 +40,7 @@ class HttpService {
   }
 
   public static async getPatientCount() {
-    return await Api.get<number>(BASE_URL + this.API_PATIENT + "/count")
+    return await Api.get<number>(this.API_PATIENT + "/count")
       .then((res) => res.data)
       .catch((error) => {
         throw error;
@@ -48,7 +48,7 @@ class HttpService {
   }
 
   public static async getPatientsStatisticsByGender() {
-    return await Api.get<PatientStatisticsByGenderDTO>(BASE_URL + this.API_PATIENT + "/statistics/by-gender")
+    return await Api.get<PatientStatisticsByGenderDTO>(this.API_PATIENT + "/statistics/by-gender")
       .then((res) => res.data)
       .catch((error) => {
         throw error;
@@ -56,7 +56,7 @@ class HttpService {
   }
 
   public static async getPatientsStatisticsByAge() {
-    return await Api.get<PatientStatisticsByAgeDTO>(BASE_URL + this.API_PATIENT + "/statistics/by-age")
+    return await Api.get<PatientStatisticsByAgeDTO>(this.API_PATIENT + "/statistics/by-age")
       .then((res) => res.data)
       .catch((error) => {
         throw error;
@@ -64,7 +64,7 @@ class HttpService {
   }
 
   public static async searchPatientList(firstName: string, patronymic: string, lastName: string) {
-    return await Api.get<Page<Patient[]>>(BASE_URL + this.API_PATIENT, {
+    return await Api.get<Page<Patient[]>>(this.API_PATIENT, {
       params: {
         firstName: firstName,
         patronymic: patronymic,
@@ -78,7 +78,7 @@ class HttpService {
   }
 
   public static async getDoctorList(page: number) {
-    return await Api.get<Page<Doctor[]>>(BASE_URL + this.API_DOCTOR,{
+    return await Api.get<Page<Doctor[]>>(this.API_DOCTOR,{
       params: { page: page },
     })
       .then((res) => res.data)
@@ -88,7 +88,7 @@ class HttpService {
   }
 
   public static async getDoctorCount() {
-    return await Api.get<number>(BASE_URL + this.API_DOCTOR + "/count")
+    return await Api.get<number>(this.API_DOCTOR + "/count")
       .then((res) => res.data)
       .catch((error) => {
         throw error;
@@ -96,7 +96,7 @@ class HttpService {
   }
 
   public static async getMedicalCard(id: number) {
-    return await Api.get<MedicalCard>(BASE_URL + this.API_MEDICAL_CARD + `/patient/${id}`)
+    return await Api.get<MedicalCard>(this.API_MEDICAL_CARD + `/patient/${id}`)
       .then((res) => res.data)
       .catch((error) => {
         throw error;
@@ -104,7 +104,7 @@ class HttpService {
   }
 
   public static async saveMedicalRecord(id: number, body: MedicalRecord) {
-    return await Api.post<MedicalCard>(BASE_URL + this.API_MEDICAL_CARD + `/patient/${id}`, body)
+    return await Api.post<MedicalCard>(this.API_MEDICAL_CARD + `/patient/${id}`, body)
       .then((res) => res.data)
       .catch((error) => {
         throw error;
@@ -112,7 +112,7 @@ class HttpService {
   }
 
   public static async getPatient(id: number) {
-    return await Api.get<Patient>(BASE_URL + this.API_PATIENT + `/${id}`)
+    return await Api.get<Patient>(this.API_PATIENT + `/${id}`)
       .then((res) => res.data)
       .catch((error) => {
         throw error;
@@ -121,7 +121,7 @@ class HttpService {
 
   public static async getSchedulesByDay(date?: string) {
     const params = date ? { date: date } : undefined;
-    return await Api.get<Schedule[]>(BASE_URL + this.API_SCHEDULE + "/day", {
+    return await Api.get<Schedule[]>(this.API_SCHEDULE + "/day", {
       params: params,
     })
       .then((res) => res.data)
@@ -131,7 +131,7 @@ class HttpService {
   }
 
   public static async getHomeDoctor() {
-    return await Api.get<Doctor>(BASE_URL + this.API_DOCTOR + "/home")
+    return await Api.get<Doctor>(this.API_DOCTOR + "/home")
       .then((res) => res.data)
       .catch((error) => {
         throw error;
@@ -139,7 +139,7 @@ class HttpService {
   }
 
   public static async getDoctor(id: number) {
-    return await Api.get<Doctor>(BASE_URL + this.API_DOCTOR + `/${id}`)
+    return await Api.get<Doctor>(this.API_DOCTOR + `/${id}`)
       .then((res) => res.data)
       .catch((error) => {
         throw error;
@@ -147,7 +147,7 @@ class HttpService {
   }
 
   public static async getScheduleById(id: number) {
-    return await Api.get<Schedule>(BASE_URL + this.API_SCHEDULE + `/${id}`)
+    return await Api.get<Schedule>(this.API_SCHEDULE + `/${id}`)
       .then((res) => res.data)
       .catch((error) => {
         throw error;
@@ -155,7 +155,7 @@ class HttpService {
   }
 
   public static async addDoctorSchedule(body: ScheduleDTO) {
-    return await Api.post<AppointmentDTO>(BASE_URL + this.API_SCHEDULE, body)
+    return await Api.post<AppointmentDTO>(this.API_SCHEDULE, body)
       .then((res) => res.data)
       .catch((error) => {
         throw error;
@@ -163,7 +163,7 @@ class HttpService {
   }
 
   public static async addDoctorAppointment(id: number, body: AppointmentDTO) {
-    return await Api.post<AppointmentDTO>(BASE_URL + this.API_SCHEDULE + `/${id}/appointment`, body)
+    return await Api.post<AppointmentDTO>(this.API_SCHEDULE + `/${id}/appointment`, body)
       .then((res) => res.data)
       .catch((error) => {
         throw error;
@@ -171,7 +171,7 @@ class HttpService {
   }
 
   public static async getLatestDoctorAppointments() {
-    return await Api.get<Appointment[]>(BASE_URL + this.API_SCHEDULE + "/appointment/latest")
+    return await Api.get<Appointment[]>(this.API_SCHEDULE + "/appointment/latest")
       .then((res) => res.data)
       .catch((error) => {
         throw error;
@@ -179,7 +179,7 @@ class HttpService {
   }
 
   public static async getAppointmentCountByDay() {
-    return await Api.get<AppointmentsCountByDayDTO[]>(BASE_URL + this.API_SCHEDULE + "/appointment/count-by-day")
+    return await Api.get<AppointmentsCountByDayDTO[]>(this.API_SCHEDULE + "/appointment/count-by-day")
       .then((res) => res.data)
       .catch((error) => {
         throw error;
@@ -187,7 +187,7 @@ class HttpService {
   }
 
   public static async updatePatient(id: number, body: PatientDTO) {
-    return await Api.post<PatientDTO>(BASE_URL + this.API_PATIENT + `/${id}/update`, body)
+    return await Api.post<PatientDTO>(this.API_PATIENT + `/${id}/update`, body)
       .then((res) => res.data)
       .catch((error) => {
         throw error;
@@ -195,7 +195,7 @@ class HttpService {
   }
 
   public static async addPatient(body: PatientDTO) {
-    return await Api.post<PatientDTO>(BASE_URL + this.API_PATIENT, body)
+    return await Api.post<PatientDTO>(this.API_PATIENT, body)
       .then((res) => res.data)
       .catch((error) => {
         throw error;
@@ -203,7 +203,7 @@ class HttpService {
   }
 
   public static async updateDoctor(id: number, body: DoctorDTO) {
-    return await Api.post<DoctorDTO>(BASE_URL + this.API_DOCTOR + `/${id}/update`, body)
+    return await Api.post<DoctorDTO>(this.API_DOCTOR + `/${id}/update`, body)
       .then((res) => res.data)
       .catch((error) => {
         throw error;
